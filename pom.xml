@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.biJian</groupId>
+    <artifactId>bookManage</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.7.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+        <!--web相关-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--mybatis相关-->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <!--mysql相关-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.46</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.21</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--分页插件 pagehelper -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <!-- 特别注意版本问题 -->
+            <version>1.2.3</version>
+        </dependency>
+
+        <!--        lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>1.3.6</version>
+        </dependency>
+
+        <!--swagger2-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+
+        <!--        poi 导出excel-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.16</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.16</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.28</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <targetPath>${project.build.directory}/classes</targetPath>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.yml</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.html</include>
+                    <include>static/**</include>
+                </includes>
+            </resource>
+            <resource>
+                <targetPath>${project.build.directory}/classes</targetPath>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.*</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.html</include>
+                </includes>
+            </resource>
+
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!--mybatis自动生成代码插件-->
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
+                    <verbose>true</verbose>
+                    <overwrite>true</overwrite>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>Generate MyBatis Artifacts</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.mybatis.generator</groupId>
+                        <artifactId>mybatis-generator-core</artifactId>
+                        <version>1.3.2</version>
+                    </dependency>
+
+                    <!--视数据库版本而定，可以选择5.x版本的connector，对应的driver为com.mysql.jdbc.Driver，如需使用该版本，请记得修改dataSource.properties中的driver项。-->
+                    <!--此处版本为8.x，对应的driver为com.mysql.cj.jdbc.Driver-->
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.11</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>io.github.swagger2markup</groupId>
+                <artifactId>swagger2markup-maven-plugin</artifactId>
+                <version>1.3.1</version>
+                <configuration>
+                    <!-- api-docs访问url -->
+                    <swaggerInput>http://localhost:8084/v2/api-docs</swaggerInput>
+                    <!-- 生成为单个文档，输出路径
+                    <outputFile>src/main/doc/api</outputFile>-->
+                    <!-- 生成为多个文档，输出路径 -->
+                    <outputDir>src/main/doc/apiall</outputDir>
+                    <config>
+                        <!-- wiki格式文档 -->
+                        <!--<swagger2markup.markupLanguage>CONFLUENCE_MARKUP</swagger2markup.markupLanguage> -->
+                        <!-- ascii格式文档 -->
+                        <swagger2markup.markupLanguage>ASCIIDOC</swagger2markup.markupLanguage>
+                        <!-- markdown格式文档 -->
+                        <!--<swagger2markup.markupLanguage>MARKDOWN</swagger2markup.markupLanguage>-->
+                        <swagger2markup.pathsGroupedBy>TAGS</swagger2markup.pathsGroupedBy>
+                    </config>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>
