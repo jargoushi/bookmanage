@@ -31,4 +31,9 @@
     select ID, BOOK_ID, NAME
     from contents
   </select>
+    <select id="selectByBookId" resultType="com.bijian.bookmanage.domain.Contents">
+      select ID, BOOK_ID, NAME
+    from contents
+    WHERE BOOK_ID = #{bookId}
+    </select>
 </mapper>

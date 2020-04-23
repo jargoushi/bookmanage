@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @Version 1.0
@@ -34,10 +35,10 @@ public class BookManageController {
 
     @ApiOperation("新增图书")
     @PostMapping("/addBook")
-    public ResponseResult<Boolean> addBook(@RequestBody Book book) {
+    public ResponseResult<Boolean> addBook(@RequestBody Book book, MultipartFile file, String contentNames) {
         logger.info("新增图书 start, book=【{}】", book);
         try {
-            Boolean flag = bookService.addBook(book);
+            Boolean flag = bookService.addBook(book, file, contentNames);
             logger.info("新增图书 success, 响应结果=【{}】", flag);
             return new ResponseResult().success(flag);
         } catch (Exception e) {

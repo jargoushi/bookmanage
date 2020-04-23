@@ -18,7 +18,7 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="aa.domain" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.bijian.bookmanage.domain" targetProject="src/main/java">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -27,7 +27,7 @@
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator targetPackage="aa.mapper" type="XMLMAPPER" targetProject="src/main/java">
+        <javaClientGenerator targetPackage="com.bijian.bookmanage.mapper" type="XMLMAPPER" targetProject="src/main/java">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 

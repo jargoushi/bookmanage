@@ -1,6 +1,8 @@
 package com.bijian.bookmanage.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.bijian.bookmanage.domain.Book;
+import com.bijian.bookmanage.domain.Contents;
 import com.bijian.bookmanage.response.Analyse;
 import com.bijian.bookmanage.response.BookList;
 import com.bijian.bookmanage.response.ResponseResult;
@@ -10,11 +12,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Version 1.0
@@ -37,7 +42,8 @@ public class HomeController {
      * 图书分析
      * @return
      */
-    @RequestMapping("/analyse")
+    @ApiOperation("图书分析")
+    @GetMapping("/analyse")
     public ResponseResult<Analyse> analyse() {
         logger.info("图书分析 start");
         try {
@@ -54,13 +60,15 @@ public class HomeController {
      * 按照类别分类获取图书列表
      * @return
      */
-    @RequestMapping("/getBookListGroupCategory")
-    public ResponseResult<List<BookList>> getBookListGroupCategory() {
+    @ApiOperation("按照类别分类获取图书列表")
+    @GetMapping("/getBookListGroupCategory")
+    public ResponseResult<JSONArray> getBookListGroupCategory() {
         logger.info("按照类别分类获取图书列表 start");
+
         try {
-            List<BookList> bookLists = homeService.getBookListGroupCategory();
-            logger.info("按照类别分类获取图书列表 success, 响应结果=【{}】", bookLists);
-            return new ResponseResult().success(bookLists);
+            JSONArray bookListGroupCategory = homeService.getBookListGroupCategory();
+            logger.info("按照类别分类获取图书列表 success, 响应结果=【{}】", bookListGroupCategory);
+            return new ResponseResult().success(bookListGroupCategory);
         } catch (Exception e) {
             logger.info("按照类别分类获取图书列表 error", e);
             return new ResponseResult().error();
@@ -71,7 +79,8 @@ public class HomeController {
      * 根据类别名称查询图书列表
      * @return
      */
-    @RequestMapping("/getBookListByCategoryName/{categoryName}")
+    @ApiOperation("根据类别名称查询图书列表")
+    @GetMapping("/getBookListByCategoryName/{categoryName}")
     public ResponseResult<List<Book>> getBookListByCategoryName(@PathVariable String categoryName) {
         logger.info("根据类别名称查询图书列表 start, categoryName={}", categoryName);
         try {
@@ -88,7 +97,8 @@ public class HomeController {
      * 根据图书名称获取图书详情信息
      * @return
      */
-    @RequestMapping("/getBookByTitle/{title}")
+    @ApiOperation("根据图书名称获取图书详情信息")
+    @GetMapping("/getBookByTitle/{title}")
     public ResponseResult<Book> getBookByTitle(@PathVariable String title) {
         logger.info("根据图书名称获取图书详情信息 start, title={}", title);
         try {
@@ -105,13 +115,14 @@ public class HomeController {
      * 按照出版社名称分类获取图书列表
      * @return
      */
-    @RequestMapping("/getBookListGroupPress")
-    public ResponseResult<List<BookList>> getBookListGroupPress() {
+    @ApiOperation("按照出版社名称分类获取图书列表")
+    @GetMapping("/getBookListGroupPress")
+    public ResponseResult<JSONArray> getBookListGroupPress() {
         logger.info("按照出版社名称分类获取图书列表 start");
         try {
-            List<BookList> bookLists = homeService.getBookListGroupPress();
-            logger.info("按照出版社名称分类获取图书列表 success, 响应结果=【{}】", bookLists);
-            return new ResponseResult().success(bookLists);
+            JSONArray bookListGroupPress = homeService.getBookListGroupPress();
+            logger.info("按照出版社名称分类获取图书列表 success, 响应结果=【{}】", bookListGroupPress);
+            return new ResponseResult().success(bookListGroupPress);
         } catch (Exception e) {
             logger.info("按照出版社名称分类获取图书列表 error", e);
             return new ResponseResult().error();
@@ -123,7 +134,8 @@ public class HomeController {
      * @param title
      * @return
      */
-    @RequestMapping("/getBookListMatchingTitle/{title}")
+    @ApiOperation("按照图书名称模糊匹配查询图书列表")
+    @GetMapping("/getBookListMatchingTitle/{title}")
     public ResponseResult<List<Book>> getBookListMatchingTitle(@PathVariable String title) {
         logger.info("按照图书名称模糊匹配查询图书列表 start");
         try {
@@ -132,6 +144,25 @@ public class HomeController {
             return new ResponseResult().success(bookLists);
         } catch (Exception e) {
             logger.info("按照图书名称模糊匹配查询图书列表 error", e);
+            return new ResponseResult().error();
+        }
+    }
+
+    /**
+     * 根据图书id查询目录
+     * @param bookId
+     * @return
+     */
+    @ApiOperation("根据图书id查询目录")
+    @GetMapping("/getBookContentNamesByBookId/{bookId}")
+    public ResponseResult<Contents> getBookContentNamesByBookId(@PathVariable String bookId) {
+        logger.info("根据图书id查询目录 start");
+        try {
+            Contents contents = homeService.getBookContentNamesByBookId(bookId);
+            logger.info("根据图书id查询目录 success, 响应结果=【{}】", contents);
+            return new ResponseResult().success(contents);
+        } catch (Exception e) {
+            logger.info("根据图书id查询目录 error", e);
             return new ResponseResult().error();
         }
     }

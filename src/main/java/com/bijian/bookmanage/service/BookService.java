@@ -1,6 +1,7 @@
 package com.bijian.bookmanage.service;
 
 import com.bijian.bookmanage.domain.Book;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @Version 1.0
@@ -9,7 +10,7 @@ import com.bijian.bookmanage.domain.Book;
  * @Content:
  */
 public interface BookService {
-    Boolean addBook(Book book);
+    Boolean addBook(Book book, MultipartFile file, String contentNames);
 
     Boolean modifyBook(Book book);
 
