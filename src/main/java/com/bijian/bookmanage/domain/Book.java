@@ -2,6 +2,9 @@ package com.bijian.bookmanage.domain;
 
 import java.math.BigDecimal;
 
+/**
+ * 图书
+ */
 public class Book {
     private Integer id;
 

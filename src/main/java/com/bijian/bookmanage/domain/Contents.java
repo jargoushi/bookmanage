@@ -1,5 +1,8 @@
 package com.bijian.bookmanage.domain;
 
+/**
+ * 目录
+ */
 public class Contents {
     private Integer id;
 

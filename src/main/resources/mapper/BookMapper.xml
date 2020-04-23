@@ -59,4 +59,35 @@
     REMARKS, CREATE_TIME, UPDATE_TIME
     from book
   </select>
+    <select id="queryMostExpensiveName" resultType="java.lang.String">
+      select title from book order by PRICE desc limit 1
+    </select>
+  <select id="queryEarliestName" resultType="java.lang.String">
+    select title from book order by PUBLIS_TIME asc limit 1
+  </select>
+  <select id="summaryAmountAndCount" resultType="com.bijian.bookmanage.response.Analyse">
+    select sum(PRICE) as totalAmount, count(1) as totalCount from book
+  </select>
+  <select id="getBookListGroupCategory" resultType="java.util.Map">
+    select CATEGORY, * from book group by CATEGORY
+  </select>
+  <select id="getBookListByCategoryName" resultType="com.bijian.bookmanage.domain.Book">
+    select ID, TITLE, PATH, PRESS, SCORE, AUTHOR, CATEGORY, PRICE, PUBLIS_TIME, CONTENT,
+    REMARKS, CREATE_TIME, UPDATE_TIME
+    from book
+    where CATEGORY = #{categoryName}
+  </select>
+  <select id="getBookByTitle" resultType="com.bijian.bookmanage.domain.Book">
+    select ID, TITLE, PATH, PRESS, SCORE, AUTHOR, CATEGORY, PRICE, PUBLIS_TIME, CONTENT,
+    REMARKS, CREATE_TIME, UPDATE_TIME
+    from book
+    where TITLE = #{title}
+  </select>
+  <select id="getBookListMatchingTitle" resultType="com.bijian.bookmanage.domain.Book">
+    select ID, TITLE, PATH, PRESS, SCORE, AUTHOR, CATEGORY, PRICE, PUBLIS_TIME, CONTENT,
+    REMARKS, CREATE_TIME, UPDATE_TIME
+    from book
+    where TITLE like concat('%', #{title}, '%')
+  </select>
+
 </mapper>

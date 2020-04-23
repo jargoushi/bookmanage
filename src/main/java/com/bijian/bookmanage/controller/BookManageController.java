@@ -8,7 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +32,8 @@ public class BookManageController {
     @Autowired
     private BookService bookService;
 
-    @RequestMapping("/addBook")
+    @ApiOperation("新增图书")
+    @PostMapping("/addBook")
     public ResponseResult<Boolean> addBook(@RequestBody Book book) {
         logger.info("新增图书 start, book=【{}】", book);
         try {
@@ -43,7 +46,8 @@ public class BookManageController {
         }
     }
 
-    @RequestMapping("/modify")
+    @ApiOperation("修改图书")
+    @PostMapping("/modify")
     public ResponseResult<Boolean> modifyBook(@RequestBody Book book) {
         logger.info("修改图书 start, book=【{}】", book);
         try {
@@ -56,7 +60,8 @@ public class BookManageController {
         }
     }
 
-    @RequestMapping("/delete/{Id}")
+    @ApiOperation("删除图书")
+    @GetMapping("/delete/{Id}")
     public ResponseResult<Boolean> deleteBook(@PathVariable Integer Id) {
         logger.info("删除图书 start, id=【{}】", Id);
         try {
