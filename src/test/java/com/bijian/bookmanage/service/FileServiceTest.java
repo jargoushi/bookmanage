@@ -26,8 +26,8 @@ public class FileServiceTest {
     @Test
     public void upload() {
 
-        String upload = fileService.upload(new File("C:\\Users\\ruwenbo\\Desktop\\u=1208538952,1443328523&fm=26&gp=0.jpg"));
-
-        System.out.println(upload);
+//        String upload = fileService.upload(new File("C:\\Users\\ruwenbo\\Desktop\\u=1208538952,1443328523&fm=26&gp=0.jpg"));
+//
+//        System.out.println(upload);
     }
 }

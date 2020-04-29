@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bijian.bookmanage.mapper.ContentsMapper" >
+  <resultMap id="BaseResultMap" type="com.bijian.bookmanage.domain.Contents" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="BOOK_ID" property="bookId" jdbcType="INTEGER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from contents
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bijian.bookmanage.domain.Contents" >
+    insert into contents (ID, BOOK_ID, NAME
+      )
+    values (#{id,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.bijian.bookmanage.domain.Contents" >
+    update contents
+    set BOOK_ID = #{bookId,jdbcType=INTEGER},
+      NAME = #{name,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select ID, BOOK_ID, NAME
+    from contents
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, BOOK_ID, NAME
+    from contents
+  </select>
+    <select id="selectByBookId" resultType="com.bijian.bookmanage.domain.Contents">
+      select ID, BOOK_ID, NAME
+    from contents
+    WHERE BOOK_ID = #{bookId}
+    </select>
+</mapper>

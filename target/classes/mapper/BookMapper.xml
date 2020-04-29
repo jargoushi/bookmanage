@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bijian.bookmanage.mapper.BookMapper" >
+  <resultMap id="BaseResultMap" type="com.bijian.bookmanage.domain.Book" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="PATH" property="path" jdbcType="VARCHAR" />
+    <result column="PRESS" property="press" jdbcType="VARCHAR" />
+    <result column="SCORE" property="score" jdbcType="DECIMAL" />
+    <result column="AUTHOR" property="author" jdbcType="VARCHAR" />
+    <result column="CATEGORY" property="category" jdbcType="VARCHAR" />
+    <result column="PRICE" property="price" jdbcType="VARCHAR" />
+    <result column="PUBLIS_TIME" property="publisTime" jdbcType="DATE" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from book
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bijian.bookmanage.domain.Book" useGeneratedKeys="true" keyProperty="id">
+    insert into book (ID, TITLE, PATH,
+      PRESS, SCORE, AUTHOR,
+      CATEGORY, PRICE, PUBLIS_TIME,
+      CONTENT, REMARKS, CREATE_TIME,
+      UPDATE_TIME)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR},
+      #{press,jdbcType=VARCHAR}, #{score,jdbcType=DECIMAL}, #{author,jdbcType=VARCHAR},
+      #{category,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, #{publisTime,jdbcType=VARCHAR},
+      #{content,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR},
+      #{updateTime,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.bijian.bookmanage.domain.Book" >
+    update book
+    set TITLE = #{title,jdbcType=VARCHAR},
+      PATH = #{path,jdbcType=VARCHAR},
+      PRESS = #{press,jdbcType=VARCHAR},
+      SCORE = #{score,jdbcType=DECIMAL},
+      AUTHOR = #{author,jdbcType=VARCHAR},
+      CATEGORY = #{category,jdbcType=VARCHAR},
+      PRICE = #{price,jdbcType=VARCHAR},
+      PUBLIS_TIME = #{publisTime,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select ID, TITLE, PATH, PRESS, SCORE, AUTHOR, CATEGORY, PRICE, PUBLIS_TIME, CONTENT,
+    REMARKS, CREATE_TIME, UPDATE_TIME
+    from book
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, TITLE, PATH, PRESS, SCORE, AUTHOR, CATEGORY, PRICE, PUBLIS_TIME, CONTENT, 
+    REMARKS, CREATE_TIME, UPDATE_TIME
+    from book
+  </select>
+    <select id="queryMostExpensiveName" resultType="java.lang.String">
+      select title from book order by PRICE desc limit 1
+    </select>
+  <select id="queryEarliestName" resultType="java.lang.String">
+    select title from book order by PUBLIS_TIME asc limit 1
+  </select>
+  <select id="summaryAmountAndCount" resultType="com.bijian.bookmanage.response.Analyse">
+    select sum(PRICE) as totalAmount, count(1) as totalCount from book
+  </select>
+
+  <select id="getBookListByCategoryName" resultType="com.bijian.bookmanage.domain.Book">
+    select ID, TITLE, PATH, PRESS, SCORE, AUTHOR, CATEGORY, PRICE, PUBLIS_TIME, CONTENT,
+    REMARKS, CREATE_TIME, UPDATE_TIME
+    from book
+    where CATEGORY = #{categoryName}
+  </select>
+  <select id="getBookByTitle" resultType="com.bijian.bookmanage.domain.Book">
+    select ID, TITLE, PATH, PRESS, SCORE, AUTHOR, CATEGORY, PRICE, PUBLIS_TIME, CONTENT,
+    REMARKS, CREATE_TIME, UPDATE_TIME
+    from book
+    where TITLE = #{title}
+  </select>
+  <select id="getBookListMatchingTitle" resultType="com.bijian.bookmanage.domain.Book">
+    select ID, TITLE, PATH, PRESS, SCORE, AUTHOR, CATEGORY, PRICE, PUBLIS_TIME, CONTENT,
+    REMARKS, CREATE_TIME, UPDATE_TIME
+    from book
+    where TITLE like concat('%', #{title}, '%')
+  </select>
+  <select id="groupByCategory" resultType="java.lang.String">
+    select CATEGORY FROM book group by CATEGORY
+  </select>
+  <select id="queryBooksByCategory" resultType="com.bijian.bookmanage.domain.Book">
+    select ID, TITLE, PATH, PRESS, SCORE, AUTHOR, CATEGORY, PRICE, PUBLIS_TIME, CONTENT,
+    REMARKS, CREATE_TIME, UPDATE_TIME
+    from book
+    where CATEGORY = #{category}
+  </select>
+  <select id="groupByPress" resultType="java.lang.String">
+    select PRESS FROM book group by PRESS
+  </select>
+  <select id="queryBooksByPress" resultType="com.bijian.bookmanage.domain.Book">
+    select ID, TITLE, PATH, PRESS, SCORE, AUTHOR, CATEGORY, PRICE, PUBLIS_TIME, CONTENT,
+    REMARKS, CREATE_TIME, UPDATE_TIME
+    from book
+    where PRESS = #{press}
+  </select>
+
+</mapper>
