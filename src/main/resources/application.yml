@@ -44,6 +44,6 @@ swagger:
   title: 图书管理系统
 
 oss:
-  accessKeyId: LTAI4GKmuHYLdKoYfrCWwAbQ
-  accessKeySecret: 1lgBaDmX7vO9GuNgM7DQr9v3VklQc7
-  bucketName: bookmanage
+  accessKeyId: 
+  accessKeySecret: 
+  bucketName: 
